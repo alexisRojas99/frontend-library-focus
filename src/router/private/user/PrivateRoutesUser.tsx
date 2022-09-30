@@ -14,7 +14,7 @@ const PrivateRoutesUser = () => {
 					<SpinnerAnimation />
 				</>
 			) : (
-				<>{dataUser?.roles[0] === "ROLE_SUPER_ADMIN" ? <Outlet /> : <Navigate to={"/login"} />}</>
+				<>{dataUser?.roles[0] === "ROLE_STUDENT" ? <Outlet /> : <Navigate to={"/librarian"} />}</>
 			)}
 		</>
 	);
