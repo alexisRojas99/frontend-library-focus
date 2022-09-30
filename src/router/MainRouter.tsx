@@ -14,6 +14,7 @@ import HomeLibrarianView from "../views/Librarian/Home/HomeLibrarianView";
 import LayoutLibrarian from "../Layouts/LayoutLibrarian";
 import NotFoundView from "../views/Auth/NotFoundView";
 import RecordsLibrarianView from "../views/Librarian/Records/RecordsLibrarianView";
+import BooksLibrarianView from "../views/Librarian/Books/BooksLibrarianView";
 
 const MainRouter = () => {
 	return (
@@ -59,6 +60,14 @@ const MainRouter = () => {
 						element={
 							<LayoutLibrarian>
 								<HomeLibrarianView />
+							</LayoutLibrarian>
+						}
+					/>
+					<Route
+						path="/librarian/books"
+						element={
+							<LayoutLibrarian>
+								<BooksLibrarianView />
 							</LayoutLibrarian>
 						}
 					/>

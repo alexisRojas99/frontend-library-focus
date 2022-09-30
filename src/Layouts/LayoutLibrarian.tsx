@@ -16,7 +16,7 @@ const LayoutLibrarian: FC<Props> = ({ children }) => {
           },
           {
             title: "Books",
-            link: "/books",
+            link: "/librarian/books",
           },
           {
             title: "Records",

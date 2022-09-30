@@ -82,7 +82,7 @@ const HomeLibrarianView = () => {
 
 					<Box>
 						<Button colorScheme={"facebook"} minWidth={"full"} type="submit" disabled={disabled}>
-							Create
+							Create User
 						</Button>
 					</Box>
 				</SimpleGrid>
