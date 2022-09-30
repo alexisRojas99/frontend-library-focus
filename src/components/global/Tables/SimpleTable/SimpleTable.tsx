@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Button } from "@chakra-ui/react";
+import dayjs from "dayjs";
 
 interface Props {
 	DataArr: Array<{
@@ -59,7 +60,7 @@ const SimpleTable: FC<Props> = ({ DataArr }) => {
 									<Td>{items.User.username}</Td>
 									<Td width="50">{items.Book.title}</Td>
 									<Td width="50">{items.quantity}</Td>
-									<Td>{items.movement_date}</Td>
+									<Td>{dayjs(items.movement_date).format('YYYY-MM-DD: HH:mm:ss')}</Td>
 									<Td>
 										<Button size={"sm"} colorScheme={"blue"}>
 											Return book

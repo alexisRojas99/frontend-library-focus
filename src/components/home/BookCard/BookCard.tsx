@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Box, Button, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { capitalizeWords } from "../../../utils/CapitalizeWords";
 
 type Props = {
 	isbn: string;
@@ -27,13 +28,13 @@ const BookCard: FC<Props> = ({ isbn, title, author, genre, image }) => {
 			<Flex gap={3} flexDirection="column" p={3} flexWrap="wrap">
 				<Box textAlign="center">
 					<Text fontWeight={"bold"} fontSize={"2xl"} maxHeight="10rem">
-						{title}
+						{capitalizeWords(title)}
 					</Text>
 					<Text fontStyle={"revert"} fontWeight={"light"}>
-						{author}
+						{capitalizeWords(author)}
 					</Text>
 					<Text fontStyle={"revert"} fontWeight={"normal"} fontSize={"14px"}>
-						{genre}
+						{capitalizeWords(genre)}
 					</Text>
 				</Box>
 				<Divider />

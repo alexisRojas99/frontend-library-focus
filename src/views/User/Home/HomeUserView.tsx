@@ -1,19 +1,47 @@
-import React, { Fragment, Key } from "react";
-import { Box, Button, Flex, Heading, Input, SimpleGrid, VStack } from "@chakra-ui/react";
+import React, { Fragment, Key, useState, ChangeEvent, useEffect } from "react";
+import { Box, Button, Flex, Heading, Input, Select, SimpleGrid, VStack } from "@chakra-ui/react";
 import BookCard from "../../../components/home/BookCard/BookCard";
 import { useQuery } from "react-query";
 import { getAllBooks } from "../../../services/books";
 
 const HomeUser = () => {
-	const { data, isLoading } = useQuery("books", getAllBooks);
+	const [search, setSearch] = useState<string>("");
+	const [filter, setFilter] = useState<string>("title");
+
+	const [valueSearch, setValueSearch] = useState<string>("");
+	const [valueFilter, setValueFilter] = useState<string>("title");
+
+	const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+		return setSearch(event.currentTarget.value);
+	};
+
+	const handleFilter = (event: ChangeEvent<HTMLSelectElement>) => {
+		return setFilter(event.currentTarget.value);
+	};
+
+	const { data, isLoading, refetch } = useQuery(["books", String(valueSearch), String(valueFilter)], ({ queryKey }) =>
+		getAllBooks(queryKey[1], queryKey[2]),
+	);
+
+	const executeSearch = () => {
+		setValueSearch(search);
+		setValueFilter(filter);
+
+		refetch();
+	};
 
 	const arrayBooks = data?.data;
 
 	return (
 		<VStack mx={4} mb={8} mt={10}>
 			<Flex gap={4} mb={10}>
-				<Input type={"text"} placeholder={"Search a Book"} />
-				<Button minWidth={"100px"} colorScheme={"blue"}>
+				<Input type={"text"} htmlSize={10} placeholder={"Search a Book"} onChange={(e: ChangeEvent<HTMLInputElement>) => handleSearch(e)} />
+				<Select defaultValue={"title"} width={"200px"} onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFilter(e)}>
+					<option value="title">title</option>
+					<option value="author">author</option>
+					<option value="genre">genre</option>
+				</Select>
+				<Button minWidth={"100px"} colorScheme={"blue"} onClick={() => executeSearch()}>
 					Search Book
 				</Button>
 			</Flex>

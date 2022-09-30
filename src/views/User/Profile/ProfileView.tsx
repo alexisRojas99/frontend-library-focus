@@ -5,7 +5,6 @@ import { BsPersonCircle } from "react-icons/bs";
 
 const ProfileView = () => {
 	const { user } = useContext(AuthContext) as any;
-	console.log(user);
 
 	return (
 		<>

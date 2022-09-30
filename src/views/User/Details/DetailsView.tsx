@@ -19,7 +19,6 @@ const BookDetailsView: FC = () => {
 
 	useEffect(() => {
 		isError(false);
-		console.log(details);
 		
 		if (details?.message === "Book not found") {
 			isError(true);

@@ -22,7 +22,6 @@ const Login = () => {
 		}
 
 		const userData: any = await verifyToken();
-		console.log("userData", userData);
 		setUser(userData.data);
 
 		navigate("/", { replace: true });

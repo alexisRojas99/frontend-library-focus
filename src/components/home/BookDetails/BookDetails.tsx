@@ -28,13 +28,16 @@ const BookDetails: FC<Props> = ({ title, image, published_year, genre, stock }) 
 					<Flex flexDirection={{ base: "column", lg: "initial" }} alignItems={"center"}>
 						<Heading>{title}</Heading>
 					</Flex>
+					<Text fontSize={"xl"} mt={"2"} fontWeight={"bold"}>
+						Published Year
+					</Text>
 					<Text fontSize={"xl"} mt={"2"}>
 						{published_year}
 					</Text>
 					<Box mt={4}>
 						<>
 							<Text fontSize={"xl"} fontWeight={"bold"}>
-								Genres
+								Genre
 							</Text>
 							{genre}
 						</>
@@ -48,7 +51,7 @@ const BookDetails: FC<Props> = ({ title, image, published_year, genre, stock }) 
 						</Tag>
 					</Box>
 					<Box>
-						<Button colorScheme={"green"}>Add to Cart</Button>
+						<Button colorScheme={"green"}>Reserve</Button>
 					</Box>
 				</GridItem>
 			</Grid>
