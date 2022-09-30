@@ -12,8 +12,17 @@ export const getAllBooks = async () => {
 };
 
 
-export const getDetailBook = async () => {
-	const response: any = await authAdapter.get("/books").catch((err) => {
+export const getDetailBook = async (id: string) => {
+	const response: any = await authAdapter.get(`/books/${id}`).catch((err) => {
+		console.log("err", err.response);
+		return err.response;
+	});
+
+	return response;
+};
+
+export const getHistoryBooks = async () => {
+	const response: any = await authAdapter.get("/books/history").catch((err) => {
 		console.log("err", err.response);
 		return err.response;
 	});

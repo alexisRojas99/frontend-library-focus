@@ -1,21 +1,18 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
+import { useQuery } from "react-query";
+import SpinnerAnimation from "../../../components/animations/SpinnerAnimation";
 import SimpleTable from "../../../components/global/Tables/SimpleTable/SimpleTable";
+import { getAllBooks, getHistoryBooks } from "../../../services/books";
 
 const HistoryView = () => {
-	const DataArr = [
-		{
-			id: 1,
-			title: "El principito",
-			stock: 10,
-			published_year: 2019,
-			username: "Juan Perez",
-		},
-	];
+	const { data, isLoading } = useQuery("histoyBooks", getHistoryBooks);
+
+	const DataArr = data?.data;
 
 	return (
 		<Box display={"flex"} justifyContent={"center"}>
-			<SimpleTable DataArr={DataArr} />
+			{isLoading ? <SpinnerAnimation /> : <SimpleTable DataArr={DataArr} />}
 		</Box>
 	);
 };

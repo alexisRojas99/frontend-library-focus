@@ -9,18 +9,6 @@ const HomeUser = () => {
 
 	const arrayBooks = data?.data;
 
-	// const arrayBooks = [
-	// 	{
-	// 		isbn: "1",
-	// 		title: "Harry Potter and the Philosopher's Stone",
-	// 		author: "J. K. Rowling",
-	// 		genre: "Fantasy",
-	// 		image: "https://images.ctfassets.net/usf1vwtuqyxm/2DCs73x6P8seNobQ9zBSbO/1a5dfd6ed5fc0ed9545370470fc3d74c/English_Harry_Potter_1_Epub_9781781100219.jpg?w=914&q=70&fm=webp",
-	// 		published_year: 1954,
-	// 		stock: 10,
-	// 	},
-	// ];
-
 	return (
 		<VStack mx={4} mb={8} mt={10}>
 			<Flex gap={4} mb={10}>

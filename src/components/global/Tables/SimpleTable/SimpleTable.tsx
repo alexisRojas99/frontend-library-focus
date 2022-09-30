@@ -4,23 +4,41 @@ import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, B
 interface Props {
 	DataArr: Array<{
 		id: number;
-		title: string;
-		stock: number;
-		published_year: number;
-		username: string;
+		id_user: number;
+		isbn: string;
+		quantity: number;
+		movement_type: string;
+		movement_date: string;
+		User: {
+			firstname: string;
+			lastname: string;
+			username: string;
+		};
+		Book: {
+			isbn: string;
+			title: string;
+			author: string;
+			published_year: number;
+			genre: string;
+			stock: number;
+			image: string;
+		};
 	}>;
 }
 
 const SimpleTable: FC<Props> = ({ DataArr }) => {
 	return (
-		<TableContainer boxSize={"70%"}>
+		<TableContainer boxSize={"80%"}>
 			<Table variant="striped" colorScheme="facebook">
 				<TableCaption>Books History</TableCaption>
 				<Thead>
 					<Tr>
 						<Th>ID</Th>
 						<Th>Student</Th>
+						<Th>Email</Th>
 						<Th>Book</Th>
+						<Th>Quantity</Th>
+						<Th>Movement Date</Th>
 						<Th>Options</Th>
 					</Tr>
 				</Thead>
@@ -37,15 +55,16 @@ const SimpleTable: FC<Props> = ({ DataArr }) => {
 									// }}
 								>
 									<Td>{items.id}</Td>
-									<Td>{items.username}</Td>
-									<Td width="50">{items.title}</Td>
+									<Td>{`${items.User.firstname} ${items.User.lastname}`}</Td>
+									<Td>{items.User.username}</Td>
+									<Td width="50">{items.Book.title}</Td>
+									<Td width="50">{items.quantity}</Td>
+									<Td>{items.movement_date}</Td>
 									<Td>
-										<Button size={"sm"} colorScheme={"blue"}>Return book</Button>
+										<Button size={"sm"} colorScheme={"blue"}>
+											Return book
+										</Button>
 									</Td>
-									{/* <Td width="40">{items.precio}</Td>
-									<Td>{items.descripcion}</Td>
-									<Td>{items.activo ? "Activo" : "Inactivo"}</Td>
-									<Td>{items.created_at}</Td> */}
 								</Tr>
 						  ))
 						: null}

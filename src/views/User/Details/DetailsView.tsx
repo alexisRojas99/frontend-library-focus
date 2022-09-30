@@ -1,40 +1,45 @@
-import React, { FC, useEffect } from "react";
-import { Box } from "@chakra-ui/react";
+import React, { FC, useEffect, useState } from "react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import BookDetails from "../../../components/home/BookDetails/BookDetails";
 import { useParams } from "react-router-dom";
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
+import { getDetailBook } from "../../../services/books";
 
 const BookDetailsView: FC = () => {
+	const [error, isError] = useState(false);
 	const { id } = useParams<{ id: string }>();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	// const { data } = useQuery('details', )
+	const { data, isLoading } = useQuery(["details", String(id)], ({ queryKey }) => getDetailBook(queryKey[1]));
 
-	const details = {
-		isbn: "1",
-		title: "Harry Potter and the Philosopher's Stone",
-		author: "J. K. Rowling",
-		genre: "Fantasy",
-		image: "https://images.ctfassets.net/usf1vwtuqyxm/2DCs73x6P8seNobQ9zBSbO/1a5dfd6ed5fc0ed9545370470fc3d74c/English_Harry_Potter_1_Epub_9781781100219.jpg?w=914&q=70&fm=webp",
-		published_year: 1954,
-		stock: 10,
-	};
+	const details = data?.data;
+
+	useEffect(() => {
+		isError(false);
+		console.log(details);
+		
+		if (details?.message === "Book not found") {
+			isError(true);
+		}
+	}, [details]);
 
 	return (
 		<Box>
 			<Box m={6}>
-				{
+				{isLoading ? (
+					<p>Loading...</p>
+				) : error ? (
+					<Flex justifyContent={"center"} alignItems={"center"} height={"30vh"}>
+						<Text fontSize={30} fontWeight={"bold"}>Not Found</Text>
+					</Flex>
+				) : (
 					<Box>
-						<Box>
-							<BookDetails {...details} />
-						</Box>
-						<Box>{/* <ActingDetails casting={casting.cast} /> */}</Box>
-						<Box>{/* <RelatedMovies movies={relatedMovies.results} /> */}</Box>
+						<BookDetails {...details} />
 					</Box>
-				}
+				)}
 			</Box>
 		</Box>
 	);
