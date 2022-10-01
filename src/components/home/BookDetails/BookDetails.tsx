@@ -1,5 +1,9 @@
-import React, { FC } from "react";
+import { useMutation } from "react-query";
+import React, { FC, useEffect, useContext } from "react";
 import { Box, Grid, GridItem, Heading, Img, VStack, Text, Flex, Tag, Button, IconButton } from "@chakra-ui/react";
+import { createHistoryBook, getHistoryBooks } from "../../../services/books";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 interface Props {
 	isbn: string;
@@ -11,7 +15,31 @@ interface Props {
 	published_year: number;
 }
 
-const BookDetails: FC<Props> = ({ title, image, published_year, genre, stock }) => {
+const BookDetails: FC<Props> = ({ isbn, title, image, published_year, genre, stock }) => {
+	const [errorMessage, setErrorMessage] = React.useState<string>("");
+	const [message, setMessage] = React.useState<string>("");
+
+	const { user } = useContext(AuthContext) as any;
+
+	const navigate = useNavigate();
+
+	const { mutate } = useMutation(
+		(data: object) => {
+			return createHistoryBook(data);
+		},
+		{
+			onSuccess: (data) => {
+				if (data.status === 201) {
+					navigate("/history", { replace: true });
+					return;
+				}
+			},
+		},
+	);
+	const handleReserve = async () => {
+		mutate({ isbn, id_user: user.id });
+	};
+
 	return (
 		<VStack m={4}>
 			<Grid
@@ -51,7 +79,9 @@ const BookDetails: FC<Props> = ({ title, image, published_year, genre, stock }) 
 						</Tag>
 					</Box>
 					<Box>
-						<Button colorScheme={"green"}>Reserve</Button>
+						<Button id="asd" colorScheme={"green"} onClick={() => handleReserve()}>
+							Reserve
+						</Button>
 					</Box>
 				</GridItem>
 			</Grid>

@@ -1,14 +1,18 @@
 import { Box } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import SpinnerAnimation from "../../../components/animations/SpinnerAnimation";
 import SimpleTable from "../../../components/global/Tables/SimpleTable/SimpleTable";
 import { getAllBooks, getHistoryBooks } from "../../../services/books";
 
 const HistoryView = () => {
-	const { data, isLoading } = useQuery("histoyBooks", getHistoryBooks);
+	const { data, isLoading, refetch } = useQuery("histoyBooks", getHistoryBooks);
 
 	const DataArr = data?.data;
+
+	useEffect(() => {
+		refetch();
+	}, []);
 
 	return (
 		<Box display={"flex"} justifyContent={"center"}>

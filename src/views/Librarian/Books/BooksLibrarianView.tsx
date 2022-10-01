@@ -17,8 +17,6 @@ const BooksLibrarianView = () => {
 		{
 			onSuccess: (data) => {
 				if (data.status !== 201) {
-                    console.log(data);
-                    
 					setErrorMessage(data.data[0].message || data.data.message);
 					return;
 				}

@@ -38,3 +38,11 @@ export const createNewBook = async (data: object) => {
 	return response;
 };
 
+export const createHistoryBook = async (data: object) => {
+	const response: any = await authAdapter.post("/books/history", data).catch((err) => {
+		console.log("err", err.response);
+		return err.response;
+	});
+
+	return response;
+};

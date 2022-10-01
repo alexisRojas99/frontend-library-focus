@@ -13,13 +13,13 @@ const BookDetailsView: FC = () => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	const { data, isLoading } = useQuery(["details", String(id)], ({ queryKey }) => getDetailBook(queryKey[1]));
+	const { data, isLoading, refetch } = useQuery(["details", String(id)], ({ queryKey }) => getDetailBook(queryKey[1]));
 
 	const details = data?.data;
 
 	useEffect(() => {
 		isError(false);
-		
+		refetch();
 		if (details?.message === "Book not found") {
 			isError(true);
 		}
