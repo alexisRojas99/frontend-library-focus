@@ -32,6 +32,10 @@ const HomeUser = () => {
 
 	const arrayBooks = data?.data;
 
+	useEffect(() => {
+		refetch();
+	})
+
 	return (
 		<VStack mx={4} mb={8} mt={10}>
 			<Flex gap={4} mb={10}>

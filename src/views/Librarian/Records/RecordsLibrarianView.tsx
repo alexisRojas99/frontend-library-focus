@@ -1,20 +1,24 @@
-import { Box } from '@chakra-ui/react';
-import React from 'react'
-import { useQuery } from 'react-query';
-import SpinnerAnimation from '../../../components/animations/SpinnerAnimation';
-import SimpleTable from '../../../components/global/Tables/SimpleTable/SimpleTable';
-import { getHistoryBooks } from '../../../services/books';
+import { Box } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { useQuery } from "react-query";
+import SpinnerAnimation from "../../../components/animations/SpinnerAnimation";
+import SimpleTable from "../../../components/global/Tables/SimpleTable/SimpleTable";
+import { getHistoryBooks } from "../../../services/books";
 
 const RecordsLibrarianView = () => {
-  const { data, isLoading } = useQuery("historyBooks", getHistoryBooks);
+	const { data, isLoading, refetch } = useQuery("historyBooks", getHistoryBooks);
 
 	const DataArr = data?.data;
 
+	useEffect(() => {
+		refetch();
+	}, []);
+
 	return (
 		<Box display={"flex"} justifyContent={"center"}>
-			{isLoading ? <SpinnerAnimation /> : <SimpleTable DataArr={DataArr} />}
+			{isLoading ? <SpinnerAnimation /> : <SimpleTable DataArr={DataArr} refresh={refetch} />}
 		</Box>
 	);
-}
+};
 
-export default RecordsLibrarianView
+export default RecordsLibrarianView;
