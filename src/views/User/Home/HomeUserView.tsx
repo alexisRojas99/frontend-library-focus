@@ -3,6 +3,7 @@ import { Box, Button, Flex, Heading, Input, Select, SimpleGrid, VStack } from "@
 import BookCard from "../../../components/home/BookCard/BookCard";
 import { useQuery } from "react-query";
 import { getAllBooks } from "../../../services/books";
+import SpinnerAnimation from "../../../components/animations/SpinnerAnimation";
 
 const HomeUser = () => {
 	const [search, setSearch] = useState<string>("");
@@ -52,7 +53,7 @@ const HomeUser = () => {
 			<>
 				<SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={10} justifyContent={"center"}>
 					{isLoading ? (
-						<Heading>Loading...</Heading>
+						<SpinnerAnimation />
 					) : (
 						arrayBooks.map((values: any, index: Key | null | undefined) => (
 							<Fragment key={index}>
