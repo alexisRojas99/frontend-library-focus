@@ -16,7 +16,7 @@ const HistoryView = () => {
 
 	return (
 		<Box display={"flex"} justifyContent={"center"}>
-			{isLoading ? <SpinnerAnimation /> : <SimpleTable DataArr={DataArr} />}
+			{isLoading ? <SpinnerAnimation /> : <SimpleTable DataArr={DataArr} refresh={refetch} />}
 		</Box>
 	);
 };

@@ -20,6 +20,7 @@ const BookDetails: FC<Props> = ({ isbn, title, image, published_year, genre, sto
 	const [message, setMessage] = React.useState<string>("");
 
 	const { user } = useContext(AuthContext) as any;
+	
 
 	const navigate = useNavigate();
 
@@ -31,7 +32,8 @@ const BookDetails: FC<Props> = ({ isbn, title, image, published_year, genre, sto
 			onSuccess: (data) => {
 				if (data.status === 201) {
 					navigate("/history", { replace: true });
-					return;
+				} else {
+					setErrorMessage(data?.data[0]?.message || data?.data?.message);
 				}
 			},
 		},
@@ -74,7 +76,7 @@ const BookDetails: FC<Props> = ({ isbn, title, image, published_year, genre, sto
 						<Text fontSize={"xl"} fontWeight={"bold"} mt={2}>
 							Stock
 						</Text>
-						<Tag my={1} mr={2} colorScheme={"green"}>
+						<Tag my={1} mr={2} colorScheme={`${Number(stock) === 0 ? 'red' : 'green'}`}>
 							{stock}
 						</Tag>
 					</Box>
@@ -82,6 +84,9 @@ const BookDetails: FC<Props> = ({ isbn, title, image, published_year, genre, sto
 						<Button id="asd" colorScheme={"green"} onClick={() => handleReserve()}>
 							Reserve
 						</Button>
+					</Box>
+					<Box mt={"10"}>
+						{errorMessage && <Text color={"red"}>{errorMessage}</Text>}
 					</Box>
 				</GridItem>
 			</Grid>

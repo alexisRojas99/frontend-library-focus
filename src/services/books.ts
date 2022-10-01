@@ -46,3 +46,12 @@ export const createHistoryBook = async (data: object) => {
 
 	return response;
 };
+
+export const returnBook = async (data: object) => {
+	const response: any = await authAdapter.put("/books/history/return-book", data).catch((err) => {
+		console.log("err", err.response);
+		return err.response;
+	});
+
+	return response;
+};

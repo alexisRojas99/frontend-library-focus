@@ -1,6 +1,8 @@
-import React, { FC } from "react";
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Button } from "@chakra-ui/react";
+import React, { FC, useEffect } from "react";
+import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Button, Center, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { useMutation } from "react-query";
+import { returnBook } from "../../../../services/books";
 
 interface Props {
 	DataArr: Array<{
@@ -11,6 +13,7 @@ interface Props {
 		movement_type: string;
 		movement_date: string;
 		User: {
+			id: number;
 			firstname: string;
 			lastname: string;
 			username: string;
@@ -25,9 +28,34 @@ interface Props {
 			image: string;
 		};
 	}>;
+	refresh: () => void;
 }
 
-const SimpleTable: FC<Props> = ({ DataArr }) => {
+const SimpleTable: FC<Props> = ({ DataArr, refresh }) => {
+	const [errorMessage, setErrorMessage] = React.useState<string>("");
+
+	const { mutate } = useMutation(
+		(data: object) => {
+			return returnBook(data);
+		},
+		{
+			onSuccess: (data) => {
+				if (data.status !== 200) {
+					setErrorMessage(data?.data[0]?.message || data?.data?.message);
+				} else {
+					setErrorMessage("");
+				}
+			},
+		},
+	);
+	const handleReturnBook = async (data: object) => {
+		mutate(data);
+	};
+
+	useEffect(() => {
+		refresh();
+	});
+
 	return (
 		<TableContainer boxSize={"80%"}>
 			<Table variant="striped" colorScheme="facebook">
@@ -60,9 +88,9 @@ const SimpleTable: FC<Props> = ({ DataArr }) => {
 									<Td>{items.User.username}</Td>
 									<Td width="50">{items.Book.title}</Td>
 									<Td width="50">{items.quantity}</Td>
-									<Td>{dayjs(items.movement_date).format('YYYY-MM-DD: HH:mm:ss')}</Td>
+									<Td>{dayjs(items.movement_date).format("YYYY-MM-DD: HH:mm:ss")}</Td>
 									<Td>
-										<Button size={"sm"} colorScheme={"blue"}>
+										<Button size={"sm"} colorScheme={"blue"} onClick={() => handleReturnBook({ id: items.id })}>
 											Return book
 										</Button>
 									</Td>
@@ -77,6 +105,7 @@ const SimpleTable: FC<Props> = ({ DataArr }) => {
 					</Tr>
 				</Tfoot>
 			</Table>
+			<Center>{errorMessage && <Text color={"red"}>{errorMessage}</Text>}</Center>
 		</TableContainer>
 	);
 };
