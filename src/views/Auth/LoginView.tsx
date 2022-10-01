@@ -15,7 +15,6 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	const onSubmit = async (data: any) => {
-		setIsLoading(true);
 		setIsError(false);
 		const login: any = await loginAuth(data);
 
@@ -28,7 +27,6 @@ const Login = () => {
 		setUser(userData.data);
 
 		navigate("/", { replace: true });
-		setIsLoading(false);
 	};
 
 	return (
