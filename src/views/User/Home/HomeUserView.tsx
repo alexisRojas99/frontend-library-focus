@@ -35,20 +35,27 @@ const HomeUser = () => {
 
 	useEffect(() => {
 		refetch();
-	})
+	});
 
 	return (
 		<VStack mx={4} mb={8} mt={10}>
-			<Flex gap={4} mb={10}>
-				<Input type={"text"} htmlSize={10} placeholder={"Search a Book"} onChange={(e: ChangeEvent<HTMLInputElement>) => handleSearch(e)} />
-				<Select defaultValue={"title"} width={"200px"} onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFilter(e)}>
+			<Flex gap={4} mb={10} flexWrap={"wrap"}>
+				<Box display={"flex"} justifyContent={"space-around"} gap={3}>
+					<Input
+						type={"text"}
+						width={{ sm: "200px", lg: "230px" }}
+						placeholder={"Search a Book"}
+						onChange={(e: ChangeEvent<HTMLInputElement>) => handleSearch(e)}
+					/>
+					<Button width={"105px"} fontSize={"15px"} colorScheme={"blue"} onClick={() => executeSearch()}>
+						Search Book
+					</Button>
+				</Box>
+				<Select defaultValue={"title"} width={"100px"} onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFilter(e)}>
 					<option value="title">title</option>
 					<option value="author">author</option>
 					<option value="genre">genre</option>
 				</Select>
-				<Button minWidth={"100px"} colorScheme={"blue"} onClick={() => executeSearch()}>
-					Search Book
-				</Button>
 			</Flex>
 			<>
 				<SimpleGrid columns={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing={10} justifyContent={"center"}>
