@@ -35,7 +35,7 @@ const HomeUser = () => {
 
 	useEffect(() => {
 		refetch();
-	});
+	}, []);
 
 	return (
 		<VStack mx={4} mb={8} mt={10}>
