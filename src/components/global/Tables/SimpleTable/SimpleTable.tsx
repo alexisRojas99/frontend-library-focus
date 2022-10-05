@@ -52,9 +52,9 @@ const SimpleTable: FC<Props> = ({ DataArr, refresh }) => {
 		mutate(data);
 	};
 
-	useEffect(() => {
-		refresh();
-	}, []);
+	// useEffect(() => {
+	// 	refresh();
+	// }, []);
 
 	return (
 		<TableContainer boxSize={"80%"}>

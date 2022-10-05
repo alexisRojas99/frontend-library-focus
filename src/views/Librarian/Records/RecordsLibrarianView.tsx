@@ -10,9 +10,11 @@ const RecordsLibrarianView = () => {
 
 	const DataArr = data?.data;
 
-	useEffect(() => {
-		refetch();
-	}, []);
+	refetch();
+
+	// useEffect(() => {
+	// 	refetch();
+	// }, []);
 
 	return (
 		<Box display={"flex"} justifyContent={"center"}>
