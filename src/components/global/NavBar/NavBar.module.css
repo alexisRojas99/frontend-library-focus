@@ -13,6 +13,7 @@
 	transition: background-color 0.35s;
 	transition: transform 0.2s ease-in-out;
 	z-index: 3;
+	color: black;
 }
 
 .color {
@@ -84,6 +85,7 @@
 .logo {
 	margin-left: 10px !important;
 	font-weight: 700;
+	color: black;
 }
 
 .btn_toggle {

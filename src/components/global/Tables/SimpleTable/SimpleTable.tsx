@@ -67,6 +67,7 @@ const SimpleTable: FC<Props> = ({ DataArr, refresh }) => {
 						<Th>Email</Th>
 						<Th>Book</Th>
 						<Th>Quantity</Th>
+						<Th>Movement</Th>
 						<Th>Movement Date</Th>
 						<Th>Options</Th>
 					</Tr>
@@ -88,6 +89,7 @@ const SimpleTable: FC<Props> = ({ DataArr, refresh }) => {
 									<Td>{items.User.username}</Td>
 									<Td width="50">{items.Book.title}</Td>
 									<Td width="50">{items.quantity}</Td>
+									<Td width="50">{items.movement_type}</Td>
 									<Td>{dayjs(items.movement_date).format("YYYY-MM-DD: HH:mm:ss")}</Td>
 									<Td>
 										<Button size={"sm"} colorScheme={"blue"} onClick={() => handleReturnBook({ id: items.id })}>
