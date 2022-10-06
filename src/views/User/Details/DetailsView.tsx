@@ -4,6 +4,7 @@ import BookDetails from "../../../components/home/BookDetails/BookDetails";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getDetailBook } from "../../../services/books";
+import SpinnerAnimation from "../../../components/animations/SpinnerAnimation";
 
 const BookDetailsView: FC = () => {
 	const [error, isError] = useState(false);
@@ -29,7 +30,7 @@ const BookDetailsView: FC = () => {
 		<Box>
 			<Box m={6}>
 				{isLoading ? (
-					<p>Loading...</p>
+					<SpinnerAnimation />
 				) : error ? (
 					<Flex justifyContent={"center"} alignItems={"center"} height={"30vh"}>
 						<Text fontSize={30} fontWeight={"bold"}>Not Found</Text>
